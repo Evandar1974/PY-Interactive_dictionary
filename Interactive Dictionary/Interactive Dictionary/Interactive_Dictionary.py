@@ -5,10 +5,12 @@ from difflib import get_close_matches
 data = json.load(open("data.json"))
 
 def translate(word):
-	if word.lower() in data:
+	if word in data:
+		return data[word]
+	elif word.lower() in data:
 		return data[word]
 	elif len(get_close_matches(word, data.keys())) > 0:
-		yn = input("Did you mean %s instead? please enter Y or N: " % get_close_matches(word, data.keys())[0]).upper
+		yn = input("Did you mean %s instead? please enter Y or N: " % get_close_matches(word, data.keys())[0])
 		if yn == "Y":
 			return data[get_close_matches(word, data.keys())[0]]
 		elif yn == "N":
